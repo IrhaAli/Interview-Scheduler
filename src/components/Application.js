@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
@@ -23,6 +23,8 @@ const days = [
 ];
 
 export default function Application(props) {
+  const [day, setDay] = useState("Monday");
+
   return (
     <main className="layout">
 
@@ -36,14 +38,14 @@ export default function Application(props) {
           alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered" />
-        
+
         {/* List of Days */}
         <nav className="sidebar__menu">
-        <DayList
-          days={days}
-          day={"Monday"}
-          setDay={day => console.log(day)}
-        />
+          <DayList
+            days={days}
+            day={day}
+            setDay={setDay}
+          />
         </nav>
 
         {/* LHL Image */}
