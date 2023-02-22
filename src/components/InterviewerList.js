@@ -7,16 +7,16 @@ export default function InterviewList(props) {
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
       <ul className="interviewers__list">
-        {props.interviewers.map((item) => (
+        {props.interviewers.map((interviewer) => (
           <InterviewerListItem
-            id={item.id}
-            name={item.name}
-            avatar={item.avatar}
-            selected={props.interviewer === item.id}
-            setInterviewer={props.setInterviewer}
+            key={interviewer.id}
+            name={interviewer.name}
+            avatar={interviewer.avatar}
+            selected={props.interviewer === interviewer.id}
+            setInterviewer={() => props.setInterviewer(interviewer.id)}
           />
         ))}
       </ul>
     </section>
-  );
+  )
 }
