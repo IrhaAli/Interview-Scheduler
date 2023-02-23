@@ -17,6 +17,7 @@ import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
+import Form from "components/Appointment/Form";
 
 // Test Button
 storiesOf("Button", module)
@@ -155,8 +156,11 @@ storiesOf("Appointment", module)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
-  .add("Show", () => <Show onEdit={action("onEdit")} onDelete={action("onDelete")} />)
+  .add("Show", () => <Show onEdit={action("onEdit")} onDelete={action("onDelete")} interviewer="Sylvia Palmer" name="Lydia Miller-Jones" />)
   .add("Confirm", () => <Confirm onCancel={action("onCancel")} onConfirm={action("onConfirm")} text={"Delete the appointment?"} />)
   .add("Status", () => <Status text={"Deleting"} />)
   .add("Error", () => <Error heading={"Error"} text={"Could not delete appointment"} onClose={action("onClose")} />)
+  .add("Create Form", () => <Form edit={false} interviewers={interviewers} onCancel={action("onCancel")} onSave={action("onSave")} onChange={action("setInterviewer")} />)
+  .add("Edit Form", () => <Form edit={true} interviewers={interviewers} onCancel={action("onCancel")} onSave={action("onSave")} student="Irha Ali" interviewer={1} onChange={action("setInterviewer")} />)
+
 
