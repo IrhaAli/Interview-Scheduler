@@ -6,12 +6,6 @@ import Empty from './Empty'
 import Form from './Form'
 import useVisualMode from "hooks/useVisualMode";
 
-const interviewer = [{
-  id: 1,
-  name: "Sylvia Palmer",
-  avatar: "https://i.imgur.com/LpaY82x.png"
-}];
-
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
