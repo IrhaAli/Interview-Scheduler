@@ -1,7 +1,7 @@
 export function getAppointmentsForDay(state, day) {
   for (const aDay of state.days) {
     if (aDay.name === day) {
-      return aDay.appointments.map(appointment => state.appointments[appointment]);
+      return [...aDay.appointments.map(appointment => state.appointments[appointment]), { key: "last", time: "5pm" }];
     }
   }
   return [];

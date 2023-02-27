@@ -40,7 +40,6 @@ export default function Appointment(props) {
       })
       .catch(() => {
         setErrorMessage(action);
-        console.log(ERROR_MESSAGE);
         transition(ERROR, true);
       })
   }
