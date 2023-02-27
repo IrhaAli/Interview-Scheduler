@@ -69,5 +69,5 @@ export default function useApplicaiton() {
       />);
   });
 
-  return { dayList, schedule }
+  return { dayList, schedule };
 }

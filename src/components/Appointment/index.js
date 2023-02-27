@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "components/Appointment/styles.scss";
+import "../../styles/Appointment.scss";
 import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';

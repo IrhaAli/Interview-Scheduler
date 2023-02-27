@@ -1,5 +1,5 @@
 import React from "react";
-import "components/Application.scss";
+import "../styles/Application.scss";
 import useApplicaiton from "hooks/useApplication";
 
 export default function Application() {
