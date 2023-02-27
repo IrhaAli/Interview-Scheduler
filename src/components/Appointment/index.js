@@ -32,9 +32,10 @@ export default function Appointment(props) {
   function save(interviewDetails = null) {
     const interview = (interviewDetails) ? { student: interviewDetails.student, interviewer: interviewDetails.interviewer } : null;
     const action = (mode === DELETE) ? 'delete' : (mode === EDIT) ? 'edit' : 'create';
+    const changeInSpots = (mode === DELETE) ? 1 : (mode === CREATE) ? -1 : 0;
     transition((action === 'delete') ? DELETING : SAVING, true);
 
-    props.bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview, changeInSpots)
       .then(() => {
         transition((interviewDetails) ? SHOW : EMPTY)
       })

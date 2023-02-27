@@ -1,6 +1,6 @@
 export function getAppointmentsForDay(state, day) {
   for (const aDay of state.days) {
-    if (aDay.name === day) {
+    if (aDay.id === day) {
       return [...aDay.appointments.map(appointment => state.appointments[appointment]), { id: "last", time: "5pm" }];
     }
   }
@@ -20,7 +20,7 @@ export function getInterview(state, interview) {
 
 export function getInterviewersForDay(state, day) {
   for (const aDay of state.days) {
-    if (aDay.name === day) {
+    if (aDay.id === day) {
       return aDay.interviewers.map((interviewer) => state.interviewers[`${interviewer}`])
     }
   }

@@ -7,7 +7,7 @@ import DayList from "../components/DayList";
 export default function useApplicaiton() {
   // Day selected, days available and appointments made
   const [state, setState] = useState({
-    day: "Monday",
+    day: 1,
     days: [],
     appointments: {},
     interviewers: {}
@@ -15,13 +15,19 @@ export default function useApplicaiton() {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
+  console.log(state.days);
+
   // Book, delete or edit interview
-  function bookInterview(id, interview) {
-    // Update the appointment being changed
+  function bookInterview(id, interview, changeInSpots) {
+    // Update the appointment and number of appointments being changed
     const appointment = {
       ...state.appointments[id],
       interview
     };
+
+    const days = [...state.days,];
+    days[state.day - 1].spots += changeInSpots;
+
     // Update all appointments object
     const appointments = {
       ...state.appointments,
@@ -33,7 +39,7 @@ export default function useApplicaiton() {
     return updateOrDelete
       .then(() => {
         // Update state
-        setState(prev => ({ ...prev, appointments }));
+        setState(prev => ({ ...prev, appointments, days }));
       })
   }
 
