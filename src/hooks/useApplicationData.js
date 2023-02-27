@@ -1,21 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors'
 import Appointment from "../components/Appointment";
 import DayList from "../components/DayList";
 
 export default function useApplicaiton() {
+
   // Day selected, days available and appointments made
-  const [state, setState] = useState({
+  const SET_DAY = "SET_DAY";
+  const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+  const SET_INTERVIEW = "SET_INTERVIEW";
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case SET_DAY:
+        return { ...state, day: action.day };
+      case SET_APPLICATION_DATA:
+        return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers };
+      case SET_INTERVIEW:
+        return { ...state, appointments: action.appointments, days: action.days };
+      default:
+        throw new Error(
+          `Tried to reduce with unsupported action type: ${action.type}`
+        );
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, {
     day: 1,
     days: [],
     appointments: {},
     interviewers: {}
   });
+
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
-
-  console.log(state.days);
 
   // Book, delete or edit interview
   function bookInterview(id, interview, changeInSpots) {
@@ -39,12 +58,12 @@ export default function useApplicaiton() {
     return updateOrDelete
       .then(() => {
         // Update state
-        setState(prev => ({ ...prev, appointments, days }));
+        dispatch({ type: SET_INTERVIEW, appointments, days });
       })
   }
 
   // Go on the day clicked on
-  const setDay = (day) => setState(prev => ({ ...prev, day }));
+  const setDay = (day) => dispatch({ type: SET_DAY, day });
 
   // Get request to fetch all days
   useEffect(() => {
@@ -53,9 +72,14 @@ export default function useApplicaiton() {
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then((all) => {
-      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
+      setApplicationData(all[0].data, all[1].data, all[2].data);
     })
   }, []);
+
+
+  function setApplicationData(days, appointments, interviewers) {
+    dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
+  }
 
   // The days listed in the nav bar
   const dayList = <DayList days={state.days} value={state.day} onChange={setDay} />
