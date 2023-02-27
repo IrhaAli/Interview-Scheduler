@@ -20,7 +20,7 @@ export default function Application() {
     // Update the appointment being changed
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview
     };
     // Update all appointments object
     const appointments = {
@@ -29,12 +29,14 @@ export default function Application() {
     };
 
     // Update database
-    return axios.put(`/api/appointments/${id}`, appointment)
-    .then(() => {
+    const updateOrDelete = (interview) ? axios.put(`/api/appointments/${id}`, appointment) : axios.delete(`/api/appointments/${id}`)
+    return updateOrDelete
+      .then(() => {
         // Update state
         setState(prev => ({ ...prev, appointments }));
       })
   }
+
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
