@@ -16,6 +16,26 @@ export default function Application() {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
+  function bookInterview(id, interview) {
+    // Update the appointment being changed
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    // Update all appointments object
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    // Update database
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then(() => {
+        // Update state
+        setState(prev => ({ ...prev, appointments }));
+      })
+  }
+
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
@@ -26,6 +46,7 @@ export default function Application() {
         time={appointment.time}
         interview={interview}
         interviewers={dailyInterviewers}
+        bookInterview={bookInterview}
       />);
   });
 
