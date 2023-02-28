@@ -8,6 +8,7 @@ import Status from './Status';
 import Confirm from './Confirm';
 import Error from './Error';
 import useVisualMode from "hooks/useVisualMode";
+import PropTypes from 'prop-types';
 
 export default function Appointment(props) {
   const [errorMessage, setErrorMessage] = useState("ERROR_MESSAGE");
@@ -86,3 +87,9 @@ export default function Appointment(props) {
     </article>
   );
 }
+
+Appointment.propTypes = {
+  bookInterview: PropTypes.func.isRequired,
+  time: PropTypes.string,
+  interviewers: PropTypes.array
+};

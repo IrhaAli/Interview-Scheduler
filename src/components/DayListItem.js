@@ -1,9 +1,10 @@
 import React from "react";
 import "../styles/DayListItem.scss";
 import classNames from "classnames";
-
+import PropTypes from 'prop-types';
 
 export default function DayListItem(props) {
+
   const spotsFull = (props.spots === 0);
   const dayListItemClass = classNames("day-list__item", {
     "day-list__item--selected": props.selected,
@@ -21,3 +22,10 @@ export default function DayListItem(props) {
     </li>
   );
 }
+
+DayListItem.propTypes = {
+  spots: PropTypes.number,
+  selected: PropTypes.bool,
+  setDay: PropTypes.func,
+  name: PropTypes.string
+};

@@ -1,8 +1,10 @@
 import React from "react";
 import "../styles/InterviewerListItem.scss";
 import classNames from "classnames";
+import PropTypes from 'prop-types';
 
 export default function InterviewerListItem(props) {
+
   const interviewerListItemClass = classNames("interviewers__item", {
     "interviewers__item--selected": props.selected
   });
@@ -18,3 +20,10 @@ export default function InterviewerListItem(props) {
     </li>
   )
 }
+
+InterviewerListItem.propTypes = {
+  selected: PropTypes.bool,
+  setInterviewer: PropTypes.func.isRequired,
+  avatar: PropTypes.string,
+  name: PropTypes.string
+};

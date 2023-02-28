@@ -1,5 +1,6 @@
 import React from "react";
 import Button from '../Button'
+import PropTypes from 'prop-types';
 
 export default function Confirm(props) {
   return (
@@ -12,3 +13,8 @@ export default function Confirm(props) {
     </main>
   );
 }
+
+Confirm.propTypes = {
+  onCancel: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired
+};
