@@ -11,6 +11,7 @@ export default function Form(props) {
   const [error, setError] = useState("");
 
   const reset = () => {
+    setError("");
     setInterviewer(null);
     setStudent("");
   };
@@ -32,6 +33,7 @@ export default function Form(props) {
     }
 
     // Save if valid input
+    setError("");
     const interviewDetails = { student, interviewer };
     props.onSave(interviewDetails);
   }
