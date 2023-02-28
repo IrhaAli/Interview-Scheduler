@@ -67,6 +67,9 @@ export default function useApplicaiton() {
 
   // Get request to fetch all days
   useEffect(() => {
+    // const websocket = new WebSocket('ws://localhost:8000');
+    // websocket.onopen = () => console.log('ws opened');
+
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
