@@ -34,6 +34,7 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             value={student}
             onChange={(event) => setStudent(event.target.value)}
+            data-testid="student-name-input"
           />
         </form>
         <InterviewerList
@@ -55,6 +56,6 @@ export default function Form(props) {
 Form.propTypes = {
   student: PropTypes.string,
   interviewers: PropTypes.array,
-  onCancel: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
+  onSave: PropTypes.func,
 };

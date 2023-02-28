@@ -35,6 +35,6 @@ export default function Show(props) {
 Show.propTypes = {
   student: PropTypes.string,
   interviewer: PropTypes.string,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };

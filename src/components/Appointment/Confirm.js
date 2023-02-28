@@ -15,6 +15,6 @@ export default function Confirm(props) {
 }
 
 Confirm.propTypes = {
-  onCancel: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired
+  onCancel: PropTypes.func,
+  onConfirm: PropTypes.func
 };

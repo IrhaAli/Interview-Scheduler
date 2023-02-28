@@ -23,7 +23,7 @@ export default function InterviewerListItem(props) {
 
 InterviewerListItem.propTypes = {
   selected: PropTypes.bool,
-  setInterviewer: PropTypes.func.isRequired,
+  setInterviewer: PropTypes.func,
   avatar: PropTypes.string,
   name: PropTypes.string
 };

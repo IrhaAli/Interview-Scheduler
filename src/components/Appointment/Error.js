@@ -21,5 +21,5 @@ export default function Error(props) {
 Error.propTypes = {
   heading: PropTypes.string,
   text: PropTypes.string,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func
 };

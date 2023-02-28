@@ -25,6 +25,5 @@ Button.propTypes = {
   confirm: PropTypes.bool,
   danger: PropTypes.bool,
   onClick: PropTypes.func,
-  // disabled: PropTypes.func.isRequired,
   children: PropTypes.string
 };

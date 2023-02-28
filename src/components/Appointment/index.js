@@ -89,7 +89,7 @@ export default function Appointment(props) {
 }
 
 Appointment.propTypes = {
-  bookInterview: PropTypes.func.isRequired,
+  bookInterview: PropTypes.func,
   time: PropTypes.string,
   interviewers: PropTypes.array
 };
