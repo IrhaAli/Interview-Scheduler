@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 
 export default function Form(props) {
 
+
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
 
   const reset = () => {
     setInterviewer(null);
@@ -19,6 +21,17 @@ export default function Form(props) {
   }
 
   const save = () => {
+    // Validate input
+    if (student === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+    if (interviewer === null) {
+      setError("Please select an interviewer");
+      return;
+    }
+
+    // Save if valid input
     const interviewDetails = { student, interviewer };
     props.onSave(interviewDetails);
   }
@@ -37,6 +50,7 @@ export default function Form(props) {
             data-testid="student-name-input"
           />
         </form>
+        <section className="appointment__validation">{error}</section>
         <InterviewerList
           interviewers={props.interviewers}
           value={interviewer}
