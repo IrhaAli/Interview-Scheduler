@@ -15,5 +15,5 @@ export default function Status(props) {
 }
 
 Status.propTypes = {
-  text: PropTypes.func
+  text: PropTypes.string
 };

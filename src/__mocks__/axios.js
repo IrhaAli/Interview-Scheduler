@@ -81,5 +81,23 @@ export default {
         data: fixtures.interviewers
       });
     }
+  }),
+
+  put: jest.fn((url, response) => {
+    const appointmentId = response.id;
+    fixtures.appointments[`${appointmentId}`] = response;
+
+    return new Promise((resolve) => {
+      resolve({ data: {} });
+    });
+  }),
+
+  delete: jest.fn(url => {
+    const appointmentId = url.split('/').pop();
+    fixtures.appointments[`${appointmentId}`].interview = null;
+
+    return new Promise((resolve) => {
+      resolve({ data: {} });
+    });
   })
 };
