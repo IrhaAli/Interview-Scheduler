@@ -77,21 +77,23 @@ export default function useApplicaiton() {
 
   // Get request to fetch all days
   useEffect(() => {
-    
+
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then((all) => {
       setApplicationData(all[0].data, all[1].data, all[2].data);
-      
-      // const websocket = new WebSocket('ws://localhost:8001');
-      // websocket.onopen = () => {
-      //   websocket.onmessage = (event) => bookInterview(event.data.id, event.data.interview, (event.data.interview) ? 1 : -1, true);
-      // };
     })
   }, []);
 
+  // useEffect(() => {
+  //   const websocket = new WebSocket('ws://localhost:8001');
+  //   websocket.onopen = () => {
+  //     websocket.onmessage = (event) => console.log(event.data, state);
+  //   };
+  //   // bookInterview(event.data.id, event.data.interview, (event.data.interview) ? 1 : -1, true)
+  // }, []);
 
   function setApplicationData(days, appointments, interviewers) {
     dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
