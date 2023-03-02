@@ -10,7 +10,28 @@ export default function reducer(state, action) {
     case SET_APPLICATION_DATA:
       return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers };
     case SET_INTERVIEW:
-      return { ...state, appointments: action.appointments, days: action.days };
+      // Update the appointment and number of appointments being changed
+      const appointment = {
+        ...state.appointments[action.id],
+        interview: action.interview
+      };
+
+      // Update spots remaining
+      const days = [...state.days];
+      let changeInSpots = action.changeInSpots;
+      // Determine change in spots for live updates
+      if (changeInSpots === undefined) {
+        changeInSpots = (appointment.interview) ? (state.appointments[`${action.id}`].interview) ? 0 : -1 : +1;
+        days[state.day - 1].spots += changeInSpots;
+      }
+
+      // Update all appointments object
+      const appointments = {
+        ...state.appointments,
+        [action.id]: appointment
+      };
+
+      return { ...state, appointments, days };
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
