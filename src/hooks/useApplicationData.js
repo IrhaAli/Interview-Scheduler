@@ -11,6 +11,7 @@ export default function useApplicaiton() {
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
 
+  // Changing state
   function reducer(state, action) {
     switch (action.type) {
       case SET_DAY:
@@ -26,6 +27,7 @@ export default function useApplicaiton() {
     }
   }
 
+  // Setting initial state
   const [state, dispatch] = useReducer(reducer, {
     day: 1,
     days: [],
@@ -37,17 +39,12 @@ export default function useApplicaiton() {
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
   // Book, delete or edit interview
-  function bookInterview(id, interview, changeInSpots, updateClient = false) {
+  function bookInterview(id, interview, changeInSpots) {
     // Update the appointment and number of appointments being changed
     const appointment = {
       ...state.appointments[id],
       interview
     };
-
-    if (updateClient) {
-
-      console.log(state.appointments);
-    }
 
     const days = [...state.days];
     days[state.day - 1].spots += changeInSpots;
@@ -57,11 +54,6 @@ export default function useApplicaiton() {
       ...state.appointments,
       [id]: appointment
     };
-
-    if (updateClient) {
-      console.log(appointments.id)
-      return dispatch({ type: SET_INTERVIEW, appointments, days });
-    }
 
     // Update database
     const updateOrDelete = (interview) ? axios.put(`/api/appointments/${id}`, appointment) : axios.delete(`/api/appointments/${id}`)
@@ -75,7 +67,7 @@ export default function useApplicaiton() {
   // Go on the day clicked on
   const setDay = (day) => dispatch({ type: SET_DAY, day });
 
-  // Get request to fetch all days
+  // Get all data when app is visited
   useEffect(() => {
 
     Promise.all([
@@ -83,21 +75,9 @@ export default function useApplicaiton() {
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then((all) => {
-      setApplicationData(all[0].data, all[1].data, all[2].data);
+      dispatch({ type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
     })
   }, []);
-
-  // useEffect(() => {
-  //   const websocket = new WebSocket('ws://localhost:8001');
-  //   websocket.onopen = () => {
-  //     websocket.onmessage = (event) => console.log(event.data, state);
-  //   };
-  //   // bookInterview(event.data.id, event.data.interview, (event.data.interview) ? 1 : -1, true)
-  // }, []);
-
-  function setApplicationData(days, appointments, interviewers) {
-    dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
-  }
 
   // The days listed in the nav bar
   const dayList = <DayList days={state.days} value={state.day} onChange={setDay} />

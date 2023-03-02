@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 
 export default function Appointment(props) {
   const [errorMessage, setErrorMessage] = useState("ERROR_MESSAGE");
+  // The different components appointment can have
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -22,6 +23,7 @@ export default function Appointment(props) {
   const ERROR = "ERROR";
   const ERROR_MESSAGE = `Could not ${errorMessage} appointment`;
 
+  // Transitioning to different components
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -30,6 +32,7 @@ export default function Appointment(props) {
     transition(CREATE);
   }
 
+  // Delete, edit or add an appointment
   function save(interviewDetails = null) {
     const interview = (interviewDetails) ? { student: interviewDetails.student, interviewer: interviewDetails.interviewer } : null;
     const action = (mode === DELETE) ? 'delete' : (mode === EDIT) ? 'edit' : 'create';
