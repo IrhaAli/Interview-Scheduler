@@ -1,4 +1,11 @@
 # Interview Scheduler
+Interview Scheduler allows users to book, edit or cancel interview.
+
+## Final product
+!["Day Page"](images/Day-Page.png)
+!["Day Page"](images/Book:Edit-Appointment.png)
+!["Day Page"](images/Delete-Appointment.png)
+
 
 ## Setup
 
