@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from "../reducers/application";
 import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors'
 import Appointment from "../components/Appointment";
@@ -6,26 +7,6 @@ import DayList from "../components/DayList";
 
 export default function useApplicaiton() {
 
-  // Day selected, days available and appointments made
-  const SET_DAY = "SET_DAY";
-  const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-  const SET_INTERVIEW = "SET_INTERVIEW";
-
-  // Changing state
-  function reducer(state, action) {
-    switch (action.type) {
-      case SET_DAY:
-        return { ...state, day: action.day };
-      case SET_APPLICATION_DATA:
-        return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers };
-      case SET_INTERVIEW:
-        return { ...state, appointments: action.appointments, days: action.days };
-      default:
-        throw new Error(
-          `Tried to reduce with unsupported action type: ${action.type}`
-        );
-    }
-  }
 
   // Setting initial state
   const [state, dispatch] = useReducer(reducer, {
@@ -78,6 +59,15 @@ export default function useApplicaiton() {
       dispatch({ type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
     })
   }, []);
+
+  // Stretch to be finished
+  // useEffect(() => {
+  //   const websocket = new WebSocket('ws://localhost:8001');
+  //   websocket.onopen = () => {
+  //     websocket.onmessage = (event) => console.log(event.data, state);
+  //   };
+  //   // bookInterview(event.data.id, event.data.interview, (event.data.interview) ? 1 : -1, true)
+  // }, []);
 
   // The days listed in the nav bar
   const dayList = <DayList days={state.days} value={state.day} onChange={setDay} />

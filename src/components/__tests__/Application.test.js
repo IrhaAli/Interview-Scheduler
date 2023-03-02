@@ -2,6 +2,7 @@ import React from "react";
 import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, queryByAltText, prettyDOM } from "@testing-library/react";
 import axios from "axios";
 import Application from "components/Application";
+import reducer from "../../reducers/application";
 
 afterEach(cleanup);
 
@@ -144,3 +145,11 @@ it("shows the save error when failing to save an appointment", async () => {
 
   expect(getByText(appointment, "Error")).toBeInTheDocument()
 })
+
+describe("Application Reducer", () => {
+  it("thows an error with an unsupported type", () => {
+    expect(() => reducer({}, { type: null })).toThrowError(
+      /tried to reduce with unsupported action type/i
+    );
+  });
+});
