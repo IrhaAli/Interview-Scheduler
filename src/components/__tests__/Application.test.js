@@ -69,7 +69,7 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
     queryByText(day, "Monday")
   );
 
-  // expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+  expect(getByText(day, "3 spots remaining")).toBeInTheDocument();
 });
 
 it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
@@ -97,7 +97,7 @@ it("loads data, edits an interview and keeps the spots remaining for Monday the 
     queryByText(day, "Monday")
   );
 
-  // expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+  expect(getByText(day, "3 spots remaining")).toBeInTheDocument();
 })
 
 it("shows the delete error when failing to delete an existing appointment", async () => {

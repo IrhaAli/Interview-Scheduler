@@ -15,10 +15,9 @@ export default function reducer(state, action) {
         ...state.appointments[action.id],
         interview: action.interview
       };
-      
+
       // Update spots remaining
       const days = [...state.days];
-
       const changeInSpots = (appointment.interview) ? (state.appointments[`${action.id}`].interview) ? 0 : -1 : +1;
       days[state.day - 1].spots += changeInSpots;
 
