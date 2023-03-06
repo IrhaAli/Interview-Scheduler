@@ -72,23 +72,12 @@ export default function Appointment(props) {
       })
   }
 
-  // if (props.time === "12pm") {
-  //   console.log('Here', props.interview, mode, props.interview === null && mode === SHOW);
-  // }
-
   // For realtime updates
   useEffect(() => {
-  // if (props.time === "12pm") {
-  //   console.log('Over Here', props.interview, mode, props.interview === null && mode === SHOW);
-  // }
-
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
     }
-    if (props.interview === null && mode === SHOW) {
-      transition(EMPTY);
-    }
-  }, [props.interview, transition, mode, props.time]);
+  }, [props.interview, transition, mode]);
 
   return (
     <article data-testid="appointment" className="appointment">
@@ -111,7 +100,7 @@ export default function Appointment(props) {
         (<Confirm text={'Are you sure you would like to delete?'}
           onConfirm={() => onDelete()}
           onCancel={() => back()} />)}
-      {mode === SHOW &&
+      {mode === SHOW && props.interview &&
         (<Show
           student={props.interview.student}
           interviewer={props.interview.interviewer.name}

@@ -10,16 +10,22 @@ export default function reducer(state, action) {
     case SET_APPLICATION_DATA:
       return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers };
     case SET_INTERVIEW:
+      console.log('1', state.appointments);
       // Update the appointment and number of appointments being changed
       const appointment = {
         ...state.appointments[action.id],
         interview: action.interview
       };
-
+      console.log('2', state.appointments);
+      
       // Update spots remaining
       const days = [...state.days];
+      console.log('3', state.appointments);
+
       const changeInSpots = (appointment.interview) ? (state.appointments[`${action.id}`].interview) ? 0 : -1 : +1;
       days[state.day - 1].spots += changeInSpots;
+
+      console.log('4', state.appointments);
 
       // Update all appointments object
       const appointments = {

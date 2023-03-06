@@ -1,4 +1,7 @@
-  // Mock data
+import WS from "jest-websocket-mock";
+const server = new WS("ws://localhost:8001");
+
+// Mock data
 const fixtures = {
   days: [
     {
@@ -88,21 +91,19 @@ export default {
 
   // Mock put request
   put: jest.fn((url, response) => {
-    const appointmentId = response.id;
-    fixtures.appointments[`${appointmentId}`] = response;
+    const appointmentId = url.split("/").pop();
+    fixtures.appointments[`${appointmentId}`].interview = response.interview
 
-    return new Promise((resolve) => {
-      resolve({ data: {} });
-    });
+    server.send(JSON.stringify(fixtures.appointments[`${appointmentId}`]));
+    return Promise.resolve()
   }),
 
   // Mock delete request
   delete: jest.fn(url => {
-    const appointmentId = url.split('/').pop();
+    const appointmentId = url.split("/").pop();
     fixtures.appointments[`${appointmentId}`].interview = null;
 
-    return new Promise((resolve) => {
-      resolve({ data: {} });
-    });
+    server.send(JSON.stringify(fixtures.appointments[`${appointmentId}`]));
+    return Promise.resolve()
   })
 };
