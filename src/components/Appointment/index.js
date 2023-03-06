@@ -28,70 +28,110 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  const showForm = () => {
-    transition(CREATE);
-  }
+  // Add an interview
+  function onAdd(interviewDetails) {
+    const interview = { student: interviewDetails.student, interviewer: interviewDetails.interviewer };
+    transition(SAVING);
 
-  // Delete, edit or add an appointment
-  function save(interviewDetails = null) {
-    const interview = (interviewDetails) ? { student: interviewDetails.student, interviewer: interviewDetails.interviewer } : null;
-    const action = (mode === DELETE) ? 'delete' : (mode === EDIT) ? 'edit' : 'create';
-    const changeInSpots = (mode === DELETE) ? 1 : (mode === CREATE) ? -1 : 0;
-    transition((action === 'delete') ? DELETING : SAVING, true);
-
-    props.bookInterview(props.id, interview, changeInSpots)
+    props.addInterview(props.id, interview)
       .then(() => {
-        transition((interviewDetails) ? SHOW : EMPTY)
+        transition(SHOW);
       })
       .catch(() => {
-        setErrorMessage(action);
+        setErrorMessage('create');
         transition(ERROR, true);
       })
   }
 
+  // Edit an interview
+  function onEdit(interviewDetails) {
+    const interview = { student: interviewDetails.student, interviewer: interviewDetails.interviewer };
+    transition(SAVING);
+
+    props.editInterview(props.id, interview)
+      .then(() => {
+        transition(SHOW);
+      })
+      .catch(() => {
+        setErrorMessage('edit');
+        transition(ERROR, true);
+      })
+  }
+
+  // Delete an interview
   function onDelete() {
-    transition(DELETE);
+    transition(DELETING);
+
+    props.deleteInterview(props.id)
+      .then(() => {
+        transition(EMPTY)
+      })
+      .catch(() => {
+        setErrorMessage('delete');
+        transition(ERROR, true);
+      })
   }
-  
-  function onEdit() {
-    transition(EDIT);
-  }
-  
+
   useEffect(() => {
+    // if (props.time === "12pm") {
+    //   console.log('Here', props.interview, mode);
+    // }
+
+    // if ((props.interview) && (props.interview.student === "Irha Ali")) {
+    //   console.log(props.interview, mode)
+    // }
+
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
     }
-    if (props.interview === null && mode === SHOW) {
-     transition(EMPTY);
+    if (props.interview === null && (mode === SHOW || mode === DELETE || mode === DELETING)) {
+      transition(EMPTY);
     }
-   }, [props.interview, transition, mode]);
+  }, [props.interview, transition, mode]);
+
+  // if (props.time === "12pm") {
+  //   console.log('Over Here', props.interview, mode);
+  // }
 
   return (
     <article data-testid="appointment" className="appointment">
       <Header time={props.time} />
-      {mode === EMPTY && <Empty onAdd={() => showForm()} />}
-      {mode === SAVING && <Status text={'Saving'} />}
-      {mode === DELETING && <Status text={'Deleting'} />}
-      {mode === ERROR && <Error heading={'Error'} text={ERROR_MESSAGE} onClose={() => back()} />}
-      {mode === DELETE && <Confirm text={'Are you sure you would like to delete?'} onConfirm={() => save()} onCancel={() => back()} />}
-      {mode === SHOW && (
-        <Show
+      {mode === EMPTY &&
+        (<Empty
+          onAdd={() => transition(CREATE)} />)}
+      {mode === SAVING &&
+        (<Status
+          text={'Saving'} />)}
+      {mode === DELETING &&
+        (<Status
+          text={'Deleting'} />)}
+      {mode === ERROR &&
+        (<Error
+          heading={'Error'}
+          text={ERROR_MESSAGE}
+          onClose={() => back()} />)}
+      {mode === DELETE &&
+        (<Confirm text={'Are you sure you would like to delete?'}
+          onConfirm={() => onDelete()}
+          onCancel={() => back()} />)}
+      {mode === SHOW &&
+        (<Show
           student={props.interview.student}
           interviewer={props.interview.interviewer.name}
-          onDelete={onDelete}
-          onEdit={onEdit}
+          onDelete={() => transition(DELETE)}
+          onEdit={() => transition(EDIT)}
         />)}
-      {mode === CREATE && (
-        <Form
+      {mode === CREATE &&
+        (<Form
           interviewers={props.interviewers}
           onCancel={() => back()}
-          onSave={save}
+          onSave={onAdd}
         />)}
-      {mode === EDIT && (
-        <Form
+      {mode === EDIT &&
+        (<Form
           interviewers={props.interviewers}
           onCancel={() => back()}
-          onSave={save}
+          onSave={onEdit}
           interviewer={props.interview.interviewer.id}
           student={props.interview.student}
         />)}

@@ -18,12 +18,8 @@ export default function reducer(state, action) {
 
       // Update spots remaining
       const days = [...state.days];
-      let changeInSpots = action.changeInSpots;
-      // Determine change in spots for live updates
-      if (changeInSpots === undefined) {
-        changeInSpots = (appointment.interview) ? (state.appointments[`${action.id}`].interview) ? 0 : -1 : +1;
-        days[state.day - 1].spots += changeInSpots;
-      }
+      const changeInSpots = (appointment.interview) ? (state.appointments[`${action.id}`].interview) ? 0 : -1 : +1;
+      days[state.day - 1].spots += changeInSpots;
 
       // Update all appointments object
       const appointments = {

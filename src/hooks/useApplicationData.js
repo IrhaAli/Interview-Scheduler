@@ -18,16 +18,22 @@ export default function useApplicaiton() {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
-  // Book, delete or edit interview
-  function bookInterview(id, interview, changeInSpots) {
-
+  // Add an interview
+  function addInterview(id, interview) {
     // Update database
-    const updateOrDelete = (interview) ? axios.put(`/api/appointments/${id}`, { interview }) : axios.delete(`/api/appointments/${id}`)
-    return updateOrDelete
-      .then(() => {
-        // Update state
-        dispatch({ type: SET_INTERVIEW, interview, changeInSpots, id });
-      })
+    return axios.put(`/api/appointments/${id}`, { interview })
+  }
+
+  // Edit an interview
+  function editInterview(id, interview) {
+    // Update database
+    return axios.put(`/api/appointments/${id}`, { interview })
+  }
+
+  // Delete an interview
+  function deleteInterview(id) {
+    // Update database
+    return axios.delete(`/api/appointments/${id}`)
   }
 
   // Go on the day clicked on
@@ -45,12 +51,12 @@ export default function useApplicaiton() {
     })
   }, []);
 
-  // Stretch to be finished
   useEffect(() => {
     const websocket = new WebSocket('ws://localhost:8001');
     websocket.onopen = () => {
       websocket.onmessage = (event) => {
         const data = JSON.parse(event.data)
+        console.log(state.appointments)
         dispatch({ type: SET_INTERVIEW, interview: data.interview, id: data.id });
       };
     };
@@ -70,7 +76,9 @@ export default function useApplicaiton() {
         time={appointment.time}
         interview={interview}
         interviewers={dailyInterviewers}
-        bookInterview={bookInterview}
+        addInterview={addInterview}
+        editInterview={editInterview}
+        deleteInterview={deleteInterview}
       />);
   });
 
