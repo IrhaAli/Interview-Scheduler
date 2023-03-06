@@ -43,7 +43,7 @@ it("loads data, books an interview and reduces the spots remaining for Monday by
     queryByText(day, "Monday")
   );
 
-  // expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+  expect(getByText(day, "no spots remaining")).toBeInTheDocument();
 });
 
 it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
@@ -75,10 +75,10 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
 it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
   const { container } = render(<Application />);
 
-  await waitForElement(() => getByText(container, "Archie Cohen"));
+  await waitForElement(() => getByText(container, "Lydia Miller-Jones"));
 
   const appointment = getAllByTestId(container, "appointment").find(
-    appointment => queryByText(appointment, "Archie Cohen")
+    appointment => queryByText(appointment, "Lydia Miller-Jones")
   );
 
   fireEvent.click(queryByAltText(appointment, "Edit"));

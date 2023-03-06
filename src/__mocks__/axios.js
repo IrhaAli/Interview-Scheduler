@@ -92,6 +92,16 @@ export default {
   // Mock put request
   put: jest.fn((url, response) => {
     const appointmentId = url.split("/").pop();
+
+    // Update spots
+    for (const day in fixtures.days) {
+      for (const appointment of fixtures.days[day].appointments) {
+        if (appointment === Number(appointmentId)) {
+          fixtures.days[day].spots -= (fixtures.appointments[`${appointmentId}`].interview) ? 0 : 1;
+          break;
+        }
+      }
+    }
     fixtures.appointments[`${appointmentId}`].interview = response.interview
 
     server.send(JSON.stringify(fixtures.appointments[`${appointmentId}`]));
@@ -101,6 +111,16 @@ export default {
   // Mock delete request
   delete: jest.fn(url => {
     const appointmentId = url.split("/").pop();
+
+    // Update spots
+    for (const day in fixtures.days) {
+      for (const appointment of fixtures.days[day].appointments) {
+        if (appointment === Number(appointmentId)) {
+          fixtures.days[day].spots += 1;
+          break;
+        }
+      }
+    }
     fixtures.appointments[`${appointmentId}`].interview = null;
 
     server.send(JSON.stringify(fixtures.appointments[`${appointmentId}`]));

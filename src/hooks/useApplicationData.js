@@ -19,7 +19,6 @@ export default function useApplicaiton() {
 
   // Add an interview
   function addInterview(id, interview) {
-    console.log('Here', state.appointments)
     return axios.put(`/api/appointments/${id}`, { interview })
   }
 
