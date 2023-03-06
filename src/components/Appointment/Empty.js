@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+// Empty appointment
 export default function Empty(props) {
   return (
     <main className="appointment__add">

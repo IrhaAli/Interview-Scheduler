@@ -1,3 +1,4 @@
+  // Mock data
 const fixtures = {
   days: [
     {
@@ -55,6 +56,8 @@ const fixtures = {
 
 export default {
   defaults: { baseURL: "" },
+
+  // Mock get request
   get: jest.fn(url => {
     if (url === "/api/days") {
       return Promise.resolve({
@@ -83,6 +86,7 @@ export default {
     }
   }),
 
+  // Mock put request
   put: jest.fn((url, response) => {
     const appointmentId = response.id;
     fixtures.appointments[`${appointmentId}`] = response;
@@ -92,6 +96,7 @@ export default {
     });
   }),
 
+  // Mock delete request
   delete: jest.fn(url => {
     const appointmentId = url.split('/').pop();
     fixtures.appointments[`${appointmentId}`].interview = null;

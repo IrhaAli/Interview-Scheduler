@@ -1,9 +1,11 @@
 describe("Navigation", () => {
+  // Visit the app
   it("should be able to visit the app", () => {
     cy.visit("/");
     cy.contains("Monday");
   });
 
+  // Navigate to another day
   it("should navigate to Tuesday", () => {
     cy.visit("/");
   

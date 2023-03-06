@@ -3,6 +3,7 @@ import "../styles/DayListItem.scss";
 import classNames from "classnames";
 import PropTypes from 'prop-types';
 
+// A day from the nav bar
 export default function DayListItem(props) {
 
   const spotsFull = (props.spots === 0);

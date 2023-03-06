@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+// Header of the appointment component
 export default function Header(props) {
   return (
     <header className="appointment__time">

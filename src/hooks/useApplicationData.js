@@ -6,7 +6,6 @@ import Appointment from "../components/Appointment";
 import DayList from "../components/DayList";
 
 export default function useApplicaiton() {
-
   // Setting initial state
   const [state, dispatch] = useReducer(reducer, {
     day: 1,
@@ -47,6 +46,7 @@ export default function useApplicaiton() {
     })
   }, []);
 
+  // Set up websocket connection to get realtime updates
   useEffect(() => {
     const websocket = new WebSocket('ws://localhost:8001');
     websocket.onopen = () => {

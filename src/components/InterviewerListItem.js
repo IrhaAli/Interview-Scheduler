@@ -3,6 +3,7 @@ import "../styles/InterviewerListItem.scss";
 import classNames from "classnames";
 import PropTypes from 'prop-types';
 
+// An interviewer Icon for selection
 export default function InterviewerListItem(props) {
 
   const interviewerListItemClass = classNames("interviewers__item", {

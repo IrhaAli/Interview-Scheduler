@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+// Saving/Deleting mode
 export default function Status(props) {
   return (
     <main className="appointment__card appointment__card--status">

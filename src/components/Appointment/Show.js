@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+// Show booked appointment details
 export default function Show(props) {
 
   return (

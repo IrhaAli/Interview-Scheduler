@@ -1,3 +1,4 @@
+// Get all appointments for the day
 export function getAppointmentsForDay(state, day) {
   for (const aDay of state.days) {
     if (aDay.id === day) {
@@ -8,13 +9,14 @@ export function getAppointmentsForDay(state, day) {
       const amPm = lastAppointment.slice(-2);
       let lastHour = (Number(lastAppointmentTime) + 1) % 12;
       lastHour += (lastHour < lastAppointmentTime) ? switchAmPm[`${amPm}`] : amPm;
-
+      // Return all appointments for the day
       return [...aDay.appointments.map(appointment => state.appointments[appointment]), { id: "last", time: lastHour }];
     }
   }
   return [];
 }
 
+// Get all interview details for the interview provided
 export function getInterview(state, interview) {
   if (!interview) {
     return null;
@@ -26,6 +28,7 @@ export function getInterview(state, interview) {
   }
 }
 
+// Get all interviewers for the day
 export function getInterviewersForDay(state, day) {
   for (const aDay of state.days) {
     if (aDay.id === day) {

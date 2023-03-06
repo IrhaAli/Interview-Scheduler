@@ -2,8 +2,8 @@ export const SET_DAY = "SET_DAY";
 export const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 export const SET_INTERVIEW = "SET_INTERVIEW";
 
+// Set the state based on the item(s) in the state that needs to be changed
 export default function reducer(state, action) {
-
   switch (action.type) {
     case SET_DAY:
       return { ...state, day: action.day };

@@ -3,8 +3,9 @@ import InterviewerListItem from "./InterviewerListItem";
 import "../styles/InterviewerList.scss";
 import PropTypes from 'prop-types';
 
+// All interviewers for the day
 export default function InterviewerList(props) {
-
+  
   return (
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>

@@ -72,14 +72,16 @@ export default function Appointment(props) {
       })
   }
 
-  if (props.time === "12pm") {
-    console.log('Here', props.interview, mode, props.interview === null && mode === SHOW);
-  }
+  // if (props.time === "12pm") {
+  //   console.log('Here', props.interview, mode, props.interview === null && mode === SHOW);
+  // }
 
+  // For realtime updates
   useEffect(() => {
-  if (props.time === "12pm") {
-    console.log('Over Here', props.interview, mode, props.interview === null && mode === SHOW);
-  }
+  // if (props.time === "12pm") {
+  //   console.log('Over Here', props.interview, mode, props.interview === null && mode === SHOW);
+  // }
+
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
     }

@@ -2,6 +2,7 @@ import React from "react";
 import DayListItem from "./DayListItem";
 import PropTypes from 'prop-types';
 
+// All days in the nav bar
 export default function DayList(props) {
 
   return (

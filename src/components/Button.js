@@ -3,6 +3,7 @@ import "../styles/Button.scss";
 import classNames from "classnames";
 import PropTypes from 'prop-types';
 
+// Different types of buttons: confirm, danger
 export default function Button(props) {
 
   const buttonClass = classNames("button", {

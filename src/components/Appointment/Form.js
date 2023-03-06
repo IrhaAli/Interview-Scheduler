@@ -3,6 +3,7 @@ import Button from '../Button'
 import InterviewerList from '../InterviewerList'
 import PropTypes from 'prop-types';
 
+// Add/Edit appointment form
 export default function Form(props) {
 
   const [student, setStudent] = useState(props.student || "");

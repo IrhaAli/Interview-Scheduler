@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-
+// Error message if not saved/deleted sucessfully
 export default function Error(props) {
   return (
     <main className="appointment__card appointment__card--error">
