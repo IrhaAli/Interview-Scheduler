@@ -72,26 +72,21 @@ export default function Appointment(props) {
       })
   }
 
+  if (props.time === "12pm") {
+    console.log('Here', props.interview, mode, props.interview === null && mode === SHOW);
+  }
+
   useEffect(() => {
-    // if (props.time === "12pm") {
-    //   console.log('Here', props.interview, mode);
-    // }
-
-    // if ((props.interview) && (props.interview.student === "Irha Ali")) {
-    //   console.log(props.interview, mode)
-    // }
-
+  if (props.time === "12pm") {
+    console.log('Over Here', props.interview, mode, props.interview === null && mode === SHOW);
+  }
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
     }
-    if (props.interview === null && (mode === SHOW || mode === DELETE || mode === DELETING)) {
+    if (props.interview === null && mode === SHOW) {
       transition(EMPTY);
     }
-  }, [props.interview, transition, mode]);
-
-  // if (props.time === "12pm") {
-  //   console.log('Over Here', props.interview, mode);
-  // }
+  }, [props.interview, transition, mode, props.time]);
 
   return (
     <article data-testid="appointment" className="appointment">

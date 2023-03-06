@@ -3,7 +3,7 @@ import React, { Fragment } from 'react'
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import "index.scss";
+import "../src/styles/index.scss";
 
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
@@ -72,13 +72,13 @@ storiesOf("DayList", module)
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
   })
   .add("Monday", () => (
-    <DayList days={days} value={"Monday"} onChange={action("setDay")} />
+    <DayList days={days} value={1} onChange={action("setDay")} />
   ))
   .add("Tuesday", () => (
-    <DayList days={days} value={"Tuesday"} onChange={action("setDay")} />
+    <DayList days={days} value={2} onChange={action("setDay")} />
   ))
   .add("Wednesday", () => (
-    <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />
+    <DayList days={days} value={3} onChange={action("setDay")} />
   ));
 
 // Test InterviewerListItem

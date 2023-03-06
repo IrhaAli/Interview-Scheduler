@@ -20,19 +20,16 @@ export default function useApplicaiton() {
 
   // Add an interview
   function addInterview(id, interview) {
-    // Update database
     return axios.put(`/api/appointments/${id}`, { interview })
   }
 
   // Edit an interview
   function editInterview(id, interview) {
-    // Update database
     return axios.put(`/api/appointments/${id}`, { interview })
   }
 
   // Delete an interview
   function deleteInterview(id) {
-    // Update database
     return axios.delete(`/api/appointments/${id}`)
   }
 
@@ -41,7 +38,6 @@ export default function useApplicaiton() {
 
   // Get all data when app is visited
   useEffect(() => {
-
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
@@ -56,7 +52,6 @@ export default function useApplicaiton() {
     websocket.onopen = () => {
       websocket.onmessage = (event) => {
         const data = JSON.parse(event.data)
-        console.log(state.appointments)
         dispatch({ type: SET_INTERVIEW, interview: data.interview, id: data.id });
       };
     };

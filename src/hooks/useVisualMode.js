@@ -4,23 +4,26 @@ import { useState } from "react";
  * Keep track of the component visited and transition from back and forth between them.
  */
 export default function useVisualMode(initial) {
-  const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]);
+  const [state, setState] = useState({
+    mode: initial,
+    history: [initial]
+  });
 
   // Add the history to the front of the array so it's easier to remove and edit the histroy array
-  function transition(value, replace = false) {
-    (replace) ? setHistory(prev => [value, ...prev.slice(1)]) : setHistory(prev => [value, ...prev]);
-    setMode(value);
+  function transition(mode, replace = false) {
+    setState((prev) => {
+      const history = (replace) ? [mode, ...prev.history.slice(1)] : [mode, ...prev.history];
+      return { mode, history }
+    })
   }
 
   function back() {
-    if (history.length > 1) {
-      setHistory(prev => {
-        return [...prev.slice(1)]
-      })
-      setMode(history[1]);
-    }
+    setState((prev) => {
+      const history = (state.history.length > 1) ? [...prev.history.slice(1)] : [...prev.history]
+      const mode = state.history[1];
+      return { mode, history }
+    })
   }
 
-  return { mode, transition, back };
+  return { mode: state.mode, transition, back };
 }
