@@ -34,9 +34,7 @@ export default function Appointment(props) {
     transition(SAVING);
 
     props.addInterview(props.id, interview)
-      .then(() => {
-        transition(SHOW);
-      })
+      .then(() => transition(SHOW))
       .catch(() => {
         setErrorMessage('create');
         transition(ERROR, true);
@@ -49,9 +47,7 @@ export default function Appointment(props) {
     transition(SAVING);
 
     props.editInterview(props.id, interview)
-      .then(() => {
-        transition(SHOW);
-      })
+      .then(() => transition(SHOW))
       .catch(() => {
         setErrorMessage('edit');
         transition(ERROR, true);
@@ -63,9 +59,7 @@ export default function Appointment(props) {
     transition(DELETING, true);
 
     props.deleteInterview(props.id)
-      .then(() => {
-        transition(EMPTY)
-      })
+      .then(() => transition(EMPTY))
       .catch(() => {
         setErrorMessage('delete');
         transition(ERROR, true);
@@ -98,11 +92,11 @@ export default function Appointment(props) {
         (<Error
           heading={'Error'}
           text={ERROR_MESSAGE}
-          onClose={() => back()} />)}
+          onClose={back} />)}
       {mode === DELETE &&
         (<Confirm text={'Are you sure you would like to delete?'}
-          onConfirm={() => onDelete()}
-          onCancel={() => back()} />)}
+          onConfirm={onDelete}
+          onCancel={back} />)}
       {mode === SHOW && props.interview &&
         (<Show
           student={props.interview.student}
@@ -113,13 +107,13 @@ export default function Appointment(props) {
       {mode === CREATE &&
         (<Form
           interviewers={props.interviewers}
-          onCancel={() => back()}
+          onCancel={back}
           onSave={onAdd}
         />)}
       {mode === EDIT &&
         (<Form
           interviewers={props.interviewers}
-          onCancel={() => back()}
+          onCancel={back}
           onSave={onEdit}
           interviewer={props.interview.interviewer.id}
           student={props.interview.student}
