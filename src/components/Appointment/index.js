@@ -60,7 +60,7 @@ export default function Appointment(props) {
 
   // Delete an interview
   function onDelete() {
-    transition(DELETING);
+    transition(DELETING, true);
 
     props.deleteInterview(props.id)
       .then(() => {
