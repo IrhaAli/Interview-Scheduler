@@ -1,10 +1,10 @@
 import React from "react";
 import "../styles/Application.scss";
-import useApplicaiton from "hooks/useApplicationData";
+import useApplicationData from "hooks/useApplicationData";
 
 export default function Application() {
   // Get all relevant info and functions from userApplication hook
-  const { schedule, dayList } = useApplicaiton();
+  const { schedule, dayList } = useApplicationData();
 
   return (
     <main className="layout">

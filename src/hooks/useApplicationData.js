@@ -5,7 +5,7 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../h
 import Appointment from "../components/Appointment";
 import DayList from "../components/DayList";
 
-export default function useApplicaiton() {
+export default function useApplicationData() {
   // Setting initial state
   const [state, dispatch] = useReducer(reducer, {
     day: 1,
